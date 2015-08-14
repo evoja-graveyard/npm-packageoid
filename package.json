@@ -1,0 +1,23 @@
+{
+  "name": "@evoja/packageoid",
+  "version": "0.0.0",
+  "description": "Reads `package.json` as object and overrides it with `process.env.npm_package_...` values which could be defined in `.npmrc` files",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/evoja/npmjs.git"
+  },
+  "author": "chivorotkiv <chivorotkiv@omich.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/evoja/npmjs/issues"
+  },
+  "homepage": "https://gitlab.com/evoja/npmjs/packageoid/#README",
+
+  "devDependencies": {
+    "nodeunit": "0.9.*"
+  }
+}
