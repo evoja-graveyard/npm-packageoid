@@ -1,7 +1,7 @@
 'use strict';
 var fs = require('fs')
 var path = require('path')
-var tools = require('./tools.js');
+var tools = require('./tools.js')
 
 function find (pmodule, dir) {
   // completely got it here:
@@ -26,11 +26,12 @@ function find (pmodule, dir) {
   return find(pmodule, path.dirname(dir));
 };
 
-function packageoid (pmodule, dir) {
-  // Help to this wrong answer:
+function packageoid (pmodule, env, dir) {
+  // Thanks to this wrong answer:
   // http://stackoverflow.com/a/10855054/1549127
   var data = require(find(pmodule, dir))
-  return actualize(data, 'npm_package', env)
+  return tools.actualize(data, 'npm_package', env || process.env)
 }
 
 module.exports = packageoid;
+module.exports.merge = tools.merge;

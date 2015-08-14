@@ -4,6 +4,10 @@ var is_number = exports.is_number = function is_number (a) {
   return typeof a == 'number'
 }
 
+var is_boolean = exports.is_boolean = function is_boolean (a) {
+  return typeof a == 'boolean'
+}
+
 var is_string = exports.is_string = function is_string (a) {
   return typeof a === 'string'
 }
@@ -18,6 +22,68 @@ var is_object = exports.is_object = function is_object(a) {
 
 var convert_key = exports.convert_key = function convert_key(key) {
   return key.replace(/[-.]/g, '_')
+}
+
+var merge = exports.merge = function merge(data, user) {
+  if (is_array(data)) {
+    if (!is_array(user)) {
+      return data
+    }
+
+    var result = []
+    for (var i = 0; i < data.length; ++i) {
+      result.push(merge(data[i], user[i]))
+    }
+    for (; i < user.length; ++i) {
+      result.push(user[i])
+    }
+    return result;
+  }
+
+  if (is_object(data)) {
+    if (!is_object(user)) {
+      return data
+    }
+
+    var result = {}
+    for (var k in data) {
+      result[k] = merge(data[k], user[k])
+    }
+    for (var k in user) {
+      if (result[k] === undefined) {
+        result[k] = user[k]
+      }
+    }
+    return result;
+  }
+
+  if (is_string(data)) {
+    return user === undefined ? data : (user + '')
+  }
+
+  if (is_number(data)) {
+    var number = Number(user)
+    return isNaN(number) ? data : number
+  }
+
+  if (is_boolean(data)) {
+    switch (user) {
+      case true: case 1: case '1':
+      case 'true': case 'TRUE':
+      case 't': case 'T':
+        return true
+      
+      case false: case 0: case '0':
+      case 'false': case 'FALSE':
+      case 'f': case 'F':
+        return false
+      
+      default:
+        return data
+    }
+  }
+
+  return user === undefined ? data : user
 }
 
 var actualize = exports.actualize = function actualize(data, prefix, env) {
@@ -40,13 +106,21 @@ var actualize = exports.actualize = function actualize(data, prefix, env) {
   var env_val = env[prefix]
 
   if (is_string(data)) {
-    return env_val === undefined ? data : env_val + ''
+    return env_val === undefined ? data : (env_val + '')
   }
 
   if (is_number(data)) {
     var number = Number(env_val)
     return isNaN(number) ? data : number;
   }
-  
+
+  if (is_boolean(data)) {
+    switch (env_val) {
+      case '1': case 'true': case 'TRUE': case 't': case 'T': return true
+      case '0': case 'false': case 'FALSE': case 'f': case 'F': return false
+      default: return data
+    }
+  }
+
   return env_val === undefined ? data : env_val
 }
