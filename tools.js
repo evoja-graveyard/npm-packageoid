@@ -24,6 +24,10 @@ var convert_key = exports.convert_key = function convert_key(key) {
   return key.replace(/[-.]/g, '_')
 }
 
+function is_env_null(a) {
+  return a === null || a === 'null'
+}
+
 var merge = exports.merge = function merge(data, user) {
   if (is_array(data)) {
     if (!is_array(user)) {
@@ -58,7 +62,9 @@ var merge = exports.merge = function merge(data, user) {
   }
 
   if (is_string(data)) {
-    return user === undefined ? data : (user + '')
+    return user === undefined ? data
+         : is_env_null(user) ? null
+         : (user + '')
   }
 
   if (is_number(data)) {
@@ -83,7 +89,9 @@ var merge = exports.merge = function merge(data, user) {
     }
   }
 
-  return user === undefined ? data : user
+  return user === undefined ? data
+       : is_env_null(user) ? null
+       : user
 }
 
 var actualize = exports.actualize = function actualize(data, prefix, env) {
@@ -106,7 +114,9 @@ var actualize = exports.actualize = function actualize(data, prefix, env) {
   var env_val = env[prefix]
 
   if (is_string(data)) {
-    return env_val === undefined ? data : (env_val + '')
+    return env_val === undefined ? data
+         : is_env_null(env_val) ? null
+         : (env_val + '')
   }
 
   if (is_number(data)) {
@@ -122,5 +132,7 @@ var actualize = exports.actualize = function actualize(data, prefix, env) {
     }
   }
 
-  return env_val === undefined ? data : env_val
+  return env_val === undefined ? data
+       : is_env_null(env_val) ? null
+       : env_val
 }

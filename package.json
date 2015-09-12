@@ -1,6 +1,6 @@
 {
   "name": "@evoja/packageoid",
-  "version": "0.0.0",
+  "version": "0.0.1-s1",
   "description": "Reads `package.json` as object and overrides it with `process.env.npm_package_...` values which could be defined in `.npmrc` files",
   "main": "index.js",
   "scripts": {
