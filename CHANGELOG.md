@@ -31,7 +31,7 @@ in `.npmrc` files
 ------------
 Changelog file follows [this convention](http://keepachangelog.com/)
 
-[unreleased]: https://github.com/evoja/metalsmith-prefixoid/compare/0.0.0...master
-[0.0.1]: https://github.com/evoja/metalsmith-prefixoid/compare/0.0.0...0.0.1
-[0.0.0]: https://github.com/evoja/metalsmith-prefixoid/tree/0.0.0
+[unreleased]: https://github.com/evoja/npm-packageoid/compare/0.0.0...master
+[0.0.1]: https://github.com/evoja/npm-packageoid/compare/0.0.0...0.0.1
+[0.0.0]: https://github.com/evoja/npm-packageoid/tree/0.0.0
 
