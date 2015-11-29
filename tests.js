@@ -375,9 +375,9 @@ exports.test_merge = function(test) {
       'num-1': 30,
       arr: [
         '900',
-        [500, 600] + '',
-        [40, '200'],
-        {x: 300, y: 400, z: 70, w: 700},
+        [500, 600],
+        ['100x', 200],
+        {x: 300, y: 400, w: 700},
         800,
         [900, '990']
       ]
@@ -387,6 +387,78 @@ exports.test_merge = function(test) {
   test.deepEqual(result, expected)
   test.done()
 }
+
+exports.test_merge_obj_to_arr = function(test) {
+  var user = {
+    arr: {
+      '0': 10,
+      '2': {y: 20, z: 30},
+      '3': 40,
+      '4': 50
+    }
+  }
+
+  var profile = {
+    arr: [
+      1,
+      2,
+      {x: 1, y: 2},
+      undefined,
+      null
+    ]
+  }
+
+  var expected = {
+    arr: [
+      10,
+      2,
+      {x: 1, y: 20, z: 30},
+      40,
+      50
+    ]
+  }
+
+  var result = tools.merge(profile, user)
+  test.deepEqual(result, expected)
+  test.done()
+}
+
+exports.test_merge_arr_to_arr = function(test) {
+  var user = {
+    arr: [
+      10,
+      null,
+      {x: 10, y: 20},
+      4
+    ]
+  }
+
+  var profile = {
+    arr: [
+      1,
+      2,
+      {x: 1, y: 2},
+      undefined,
+      null,
+      6
+    ]
+  }
+
+  var expected = {
+    arr: [
+      10,
+      null,
+      {x: 10, y: 20},
+      4
+    ]
+  }
+
+  var result = tools.merge(profile, user)
+  test.deepEqual(result, expected)
+  test.done()
+}
+
+
 
 exports.test_main_merge = function(test) {
   test.same(require('./index.js').merge, tools.merge)

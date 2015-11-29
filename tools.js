@@ -13,7 +13,7 @@ var is_string = exports.is_string = function is_string (a) {
 }
 
 var is_array = exports.is_array = Array.isArray || function is_array(a) {
-  return !is_string(a) && Object.prototype.toString.call(a) === '[object Array]';
+  return Object.prototype.toString.call(a) === '[object Array]';
 }
 
 var is_object = exports.is_object = function is_object(a) {
@@ -30,18 +30,19 @@ function is_env_null(a) {
 
 var merge = exports.merge = function merge(data, user) {
   if (is_array(data)) {
-    if (!is_array(user)) {
-      return data
+    if (is_object(user)) {
+      var result = data.slice();
+      for (var k in user) {
+        result[k] = merge(data[k], user[k])
+      }
+      return result
     }
 
-    var result = []
-    for (var i = 0; i < data.length; ++i) {
-      result.push(merge(data[i], user[i]))
+    if (is_array(user)) {
+      return user
     }
-    for (; i < user.length; ++i) {
-      result.push(user[i])
-    }
-    return result;
+
+    return data
   }
 
   if (is_object(data)) {
