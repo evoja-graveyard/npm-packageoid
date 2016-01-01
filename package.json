@@ -4,7 +4,8 @@
   "description": "Reads `package.json` as object and overrides it with `process.env.npm_package_...` values which could be defined in `.npmrc` files",
   "author": "chivorotkiv <chivorotkiv@omich.net>",
   "license": "MIT",
-  "repository": "git@github.com/evoja/npm-packageoid.git",
+  "repository": "git@github.com:evoja/npm-packageoid.git",
+  "homepage": "https://github.com/evoja/npm-packageoid",
 
   "main": "lib/index.js",
   "files": ["lib"],
