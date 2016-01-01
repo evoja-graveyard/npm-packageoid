@@ -1,6 +1,7 @@
 'use strict';
 
-var tools = require('./tools.js');
+var tl = require('../test-lib.js')
+var tools = tl.require('tools.js');
 
 function curry (fun, _args) {
   var slice = Array.prototype.slice 
@@ -455,12 +456,5 @@ exports.test_merge_arr_to_arr = function(test) {
 
   var result = tools.merge(profile, user)
   test.deepEqual(result, expected)
-  test.done()
-}
-
-
-
-exports.test_main_merge = function(test) {
-  test.same(require('./index.js').merge, tools.merge)
   test.done()
 }
