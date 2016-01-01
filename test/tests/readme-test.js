@@ -5,6 +5,71 @@ var packageoid = tl.require('index.js')
 var merge = packageoid.merge
 var me = module.exports
 
+me.test_main = {}
+me.test_main.just = (test) => {
+  var res = packageoid(module).config
+  test.deepEqual(res, {a: 1, b: '1', c: {d: 1}, e: [1, 'hi']})
+  test.strictEqual(res.a, 1)
+  test.strictEqual(res.b, '1')
+  test.strictEqual(res.c.d, 1)
+  test.strictEqual(res.e[0], 1)
+  test.ok(Array.isArray(res.e))
+  test.done()
+}
+me.test_main.types_num = (test) => {
+  var env = {
+    npm_package_config_a: '10',
+    npm_package_config_b: '10',
+    npm_package_config_c: '10',
+    npm_package_config_d: '10',
+  }
+  var res = packageoid(module, env).config
+  test.deepEqual(res, {a: 10, b: '10', c: {d: 1}, e: [1, 'hi']})
+  test.strictEqual(res.a, 10)
+  test.strictEqual(res.b, '10')
+  test.strictEqual(res.c.d, 1)
+  test.strictEqual(res.e[0], 1)
+  test.ok(Array.isArray(res.e))
+  test.done()
+}
+me.test_main.types_str = (test) => {
+  var env = {
+    npm_package_config_a: 'a',
+    npm_package_config_b: 'a',
+    npm_package_config_c: 'a',
+    npm_package_config_d: 'a',
+  }
+  var res = packageoid(module, env).config
+  test.deepEqual(res, {a: 1, b: 'a', c: {d: 1}, e: [1, 'hi']})
+  test.strictEqual(res.a, 1)
+  test.strictEqual(res.b, 'a')
+  test.strictEqual(res.c.d, 1)
+  test.strictEqual(res.e[0], 1)
+  test.ok(Array.isArray(res.e))
+  test.done()
+}
+me.test_main.types_empty = (test) => {
+  var env = {
+    npm_package_config_a: '',
+    npm_package_config_b: '',
+    npm_package_config_c: '',
+    npm_package_config_d: '',
+  }
+  var res = packageoid(module, env).config
+  test.deepEqual(res, {a: 0, b: '', c: {d: 1}, e: [1, 'hi']})
+  test.strictEqual(res.a, 0)
+  test.strictEqual(res.b, '')
+  test.strictEqual(res.c.d, 1)
+  test.strictEqual(res.e[0], 1)
+  test.ok(Array.isArray(res.e))
+  test.done()
+}
+
+
+
+
+
+
 me.test_merge = {}
 me.test_merge.deep_copy = (test) => {
   var obj = {a: 10, b: {c: 20}}
