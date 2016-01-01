@@ -44,6 +44,7 @@ me.test_merge.number_number = (test) => {
 me.test_merge.number_string = (test) => {
   test.strictEqual(merge(1, '2'), 2)
   test.notStrictEqual(merge(1, '2'), '2')
+  test.strictEqual(merge(1, 'a'), 1)
   test.done()
 }
 
@@ -75,11 +76,11 @@ me.test_merge.object_numstrarr = (test) => {
 
 me.test_merge.array_numstr = (test) => {
   var orig = [10, '20', {d: 40, e: 'hi'}]
-  var obj = [10, '20', {d: 40, e: 'hi'}]
-  test.deepEqual(merge(obj, 'hi'), orig)
-  test.notStrictEqual(merge(obj, 'hi'), obj)
-  test.deepEqual(merge(obj, 1), orig)
-  test.notStrictEqual(merge(obj, 1), obj)
+  var arr = [10, '20', {d: 40, e: 'hi'}]
+  test.deepEqual(merge(arr, 'hi'), orig)
+  test.notStrictEqual(merge(arr, 'hi'), arr)
+  test.deepEqual(merge(arr, 1), orig)
+  test.notStrictEqual(merge(arr, 1), arr)
   test.done()
 }
 

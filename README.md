@@ -2,7 +2,7 @@
 
 Reads `package.json` as object and overrides it with `process.env.npm_package_...` values which could be defined in `.npmrc` files
 
-### packageoid.merge
+## packageoid.merge
 Takes two arguments `default_conf` and `user_conf` it makes a deep copy of the `default_conf`, and applies the `user_conf` to it. The `user_conf` overrides mentioned fields of the `default_conf`.
 
 ```js
@@ -30,10 +30,29 @@ array | object | builds new array where specific inicies were replaces with merg
 value | undefined | keeps default
 value | null | _is not specified yet,_ hovewer behaves somehow
 undefined/unexisting | value | user's value. Does not make deep copy
----------------------
 
 
-### packageoid
+Examples
+
+```js
+'a', 'b'        => 'b'
+'a',  1         => '1'
+'a', {}         => '[object Object]'
+'a', [10, 'hi'] => '10,hi'`
+ 1,   2         =>  2
+ 1,  'a'|{}|[]  =>  1
+
+{a: 10, b: '20', c: 30}, {a: '1', b: 2, d: 'x'} => {a: 1, b: '2', c: 30, d: 'x'}
+
+{a: 10},             1|'a'|[]     => {a: 10}
+[10, 'hi'],          1|'a'        => [10, 'hi']
+[10, 'hi', {a: 30}], [1]          => [1]
+[10, 'hi', {a: 30}], {2: {b: 40}} => [10, 'hi', {a: 30, b: 40}]
+```
+
+
+
+## packageoid
 Reads config of the module and applies environment variables as user's replacement.
 
 ```js
