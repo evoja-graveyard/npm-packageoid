@@ -1,12 +1,12 @@
 {
   "name": "@evoja/packageoid",
-  "version": "0.0.1-s2",
+  "version": "0.0.1",
   "description": "Reads `package.json` as object and overrides it with `process.env.npm_package_...` values which could be defined in `.npmrc` files",
   "author": "chivorotkiv <chivorotkiv@omich.net>",
   "license": "MIT",
   "repository": "git@github.com/evoja/npm-packageoid.git",
 
-  "main": "index.js",
+  "main": "lib/index.js",
   "files": ["lib"],
 
   "scripts": {
@@ -62,7 +62,7 @@
     "babel-preset-es2015": "6.2",
     "babel-plugin-transform-object-rest-spread": "6.2",
 
-    "nodeunit": "0.9.*",
+    "nodeunit": "0.9.1",
     "babel-register": "6.2",
     "copyfiles": "0.2.1",
 
