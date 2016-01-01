@@ -1,6 +1,6 @@
 {
   "name": "@evoja/packageoid",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Reads `package.json` as object and overrides it with `process.env.npm_package_...` values which could be defined in `.npmrc` files",
   "author": "chivorotkiv <chivorotkiv@omich.net>",
   "license": "MIT",
