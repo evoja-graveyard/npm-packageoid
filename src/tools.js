@@ -1,5 +1,7 @@
 'use strict';
 
+var deep_copy = require('./deep-copy.js')
+
 var is_number = exports.is_number = function is_number (a) {
   return typeof a == 'number'
 }
@@ -33,7 +35,10 @@ var merge = exports.merge = function merge(data, user) {
     if (is_object(user)) {
       var result = data.slice();
       for (var k in user) {
-        result[k] = merge(data[k], user[k])
+        var k_num = Number(k)
+        if (typeof k_num == 'number' && !isNaN(k_num)) {
+          result[k] = merge(data[k], user[k])
+        }
       }
       return result
     }
@@ -42,12 +47,12 @@ var merge = exports.merge = function merge(data, user) {
       return user
     }
 
-    return data
+    return deep_copy(data)
   }
 
   if (is_object(data)) {
     if (!is_object(user)) {
-      return data
+      return deep_copy(data)
     }
 
     var result = {}
